@@ -1,18 +1,17 @@
 body {
   text-align: center;
   vertical-align:middle;
+  margin: 0 auto;
 }
 li {
   list-style: none;
 }
 .header {
-  display:grid;
-	grid-template-columns: 1fr 1fr;
  background-color: rgb(51, 51, 51);
- min-height: 6vh;
+ min-height: 60px;
  color: white;
 }
-.header > div:first-child {
+/* .header > div:first-child {
   margin: auto 0;
   padding: 0 50px;
   text-align: left;
@@ -20,7 +19,7 @@ li {
 .header > div:last-child {
   margin: auto;
   text-align: left;
-}
+} */
 .main {
   display: flex;
   min-height: 88vh;
