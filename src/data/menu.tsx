@@ -8,6 +8,7 @@ enum BlogMenuType {
     menuId: number;
     menuNm: string;
     menuType: BlogMenuType;
+    menuUrl?: string;
     menuSub?: BlogMenu[];
 };
   
@@ -25,6 +26,7 @@ enum BlogMenuType {
                     {
                         menuId: 1100,
                         menuNm: 'Introduce',
+                        menuUrl: '/introduce',
                         menuType: BlogMenuType.Bottom,
                     }
                 ]
@@ -44,16 +46,19 @@ enum BlogMenuType {
                     {
                         menuId: 2110,
                         menuNm: 'js',
+                        menuUrl: '/js',
                         menuType: BlogMenuType.Bottom,
                     },
                     {
                         menuId: 2120,
                         menuNm: 'ts',
+                        menuUrl: '/ts',
                         menuType: BlogMenuType.Bottom,
                     },
                     {
                         menuId: 2130,
                         menuNm: 'Java',
+                        menuUrl: '/Java',
                         menuType: BlogMenuType.Bottom,
                     },
                 ]
@@ -66,6 +71,7 @@ enum BlogMenuType {
                     {
                         menuId: 2210,
                         menuNm: 'git',
+                        menuUrl: '/git',
                         menuType: BlogMenuType.Bottom,
                     }
                 ]
@@ -78,6 +84,7 @@ enum BlogMenuType {
                     {
                         menuId: 2310,
                         menuNm: 'webpack',
+                        menuUrl: '/webpack',
                         menuType: BlogMenuType.Bottom,
                     }
                 ]
@@ -90,21 +97,25 @@ enum BlogMenuType {
                     {
                         menuId: 2410,
                         menuNm: 'oracle',
+                        menuUrl: '/oracle',
                         menuType: BlogMenuType.Bottom,
                     },
                     {
                         menuId: 2420,
                         menuNm: 'mssql',
+                        menuUrl: '/mssql',
                         menuType: BlogMenuType.Bottom,
                     },
                     {
                         menuId: 2430,
                         menuNm: 'mysql',
+                        menuUrl: '/mysql',
                         menuType: BlogMenuType.Bottom,
                     },
                     {
                         menuId: 2440,
                         menuNm: 'postgreSql',
+                        menuUrl: '/postgreSql',
                         menuType: BlogMenuType.Bottom,
                     },
                 ]
@@ -129,6 +140,7 @@ enum BlogMenuType {
                     {
                         menuId: 4110,
                         menuNm: 'FFXIV Api',
+                        menuUrl: '/FFXIV',
                         menuType: BlogMenuType.Bottom,
                     }
                 ]
