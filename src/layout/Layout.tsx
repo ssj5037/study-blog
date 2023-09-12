@@ -6,6 +6,8 @@ import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons';
 
 import { blogMenuList, BlogMenu } from '../data/menu';
 import { Outlet, Link  } from 'react-router-dom';
+import theme from 'style/theme';
+import Fonts from 'style/Fonts';
 
 export const Layout = () => {
     
@@ -51,7 +53,8 @@ export const Layout = () => {
 
 
     return (
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <Fonts />
         <Center>
           <Grid
           width={1540}
