@@ -12,10 +12,10 @@ export const Home = () => {
                 m='20px 20px 0 20px'
             >
                 <GridItem colSpan={3} >
-                    <img src="/image/home1.jpg" height='350px'></img>
+                    <img src={`${process.env.PUBLIC_URL}/image/home1.jpg`} height='350px'></img>
                 </GridItem>
                 <GridItem colSpan={3} >
-                    <img src="/image/home2.jpg"></img>
+                    <img src={`${process.env.PUBLIC_URL}/image/home2.jpg`}></img>
                 </GridItem>
                 <GridItem colSpan={4} rowSpan={2} textAlign='left' >
                     <Box mt='20'>
@@ -41,10 +41,10 @@ export const Home = () => {
                 </GridItem>
 
                 <GridItem colSpan={3} >
-                    <img src="/image/home3.jpg"></img>
+                    <img src={`${process.env.PUBLIC_URL}/image/home3.jpg`}></img>
                 </GridItem>
                 <GridItem colSpan={3} >
-                    <img src="/image/home4.jpg"></img>
+                    <img src={`${process.env.PUBLIC_URL}/image/home4.jpg`}></img>
                 </GridItem>
             </Grid>
         </>

@@ -47,7 +47,7 @@ export const TemplatePost = () => {
                     <VStack align='stretch' m="10px 50px" spacing={5}>
                         <Box>
                             <HStack>
-                                <Avatar src='/image/avatar1.jpg' />
+                                <Avatar src={`${process.env.PUBLIC_URL}/image/avatar1.jpg`} />
                                 <Heading size='md'>{`신수진(ssj5037)`}</Heading>
                             </HStack>
                             <HStack>
@@ -58,7 +58,7 @@ export const TemplatePost = () => {
                         <Divider />
                         <Box>
                             <HStack>
-                                <Avatar src='/image/avatar1.jpg' />
+                                <Avatar src={`${process.env.PUBLIC_URL}/image/avatar1.jpg`} />
                                 <Heading size='md'>{`신수진(ssj5037)`}</Heading>
                                 <Text>2023년 9월 13일 10:00:00</Text>
                                 <Text>❤ 10</Text>
@@ -72,7 +72,7 @@ export const TemplatePost = () => {
                         </Box>
                         <Box>
                             <HStack>
-                                <Avatar src='/image/avatar1.jpg' />
+                                <Avatar src={`${process.env.PUBLIC_URL}/image/avatar1.jpg`} />
                                 <Heading size='md'>{`신수진(ssj5037)`}</Heading>
                                 <Text>2023년 9월 13일 10:00:00</Text>
                                 <Text>❤ 10</Text>
@@ -86,7 +86,7 @@ export const TemplatePost = () => {
                         </Box>
                         <Box>
                             <HStack>
-                                <Avatar src='/image/avatar1.jpg' />
+                                <Avatar src={`${process.env.PUBLIC_URL}/image/avatar1.jpg`} />
                                 <Heading size='md'>{`신수진(ssj5037)`}</Heading>
                                 <Text>2023년 9월 13일 10:00:00</Text>
                                 <Text>❤ 10</Text>
