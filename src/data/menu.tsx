@@ -147,6 +147,32 @@ enum BlogMenuType {
             }
         ]
     },
+    {
+        menuId: 9000,
+        menuNm: 'Template',
+        menuType: BlogMenuType.Top,
+        menuSub: [
+            {
+                menuId: 9100,
+                menuNm: 'Post Template',
+                menuType: BlogMenuType.Middle,
+                menuSub: [
+                    {
+                        menuId: 9110,
+                        menuNm: 'Posting List',
+                        menuUrl: '/templateList',
+                        menuType: BlogMenuType.Bottom,
+                    },
+                    {
+                        menuId: 9120,
+                        menuNm: 'Post', 
+                        menuUrl: '/templatePost',
+                        menuType: BlogMenuType.Bottom,
+                    }
+                ]
+            }
+        ]
+    },
 ];
   
 export {

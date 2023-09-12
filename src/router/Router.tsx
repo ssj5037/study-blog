@@ -4,7 +4,8 @@ import { Layout } from 'layout/Layout';
 import { Introduce } from 'component/Introduce';
 import { Home } from 'component/Home';
 import { NotFound } from './NotFound';
-import { Template } from 'template/template';
+import { TemplatePostList } from 'template/templatePostList';
+import { TemplatePost } from 'template/templatePost';
 
 export const Router = () => {
     return (
@@ -12,7 +13,8 @@ export const Router = () => {
             <Route path="/" element={<Layout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/introduce" element={<Introduce />} />
-                <Route path="/template" element={<Template />} />
+                <Route path="/templateList" element={<TemplatePostList />} />
+                <Route path="/templatePost" element={<TemplatePost />} />
                         
                 <Route path="*" element={<NotFound />} />
             </Route>
