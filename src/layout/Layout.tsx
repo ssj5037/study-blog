@@ -6,6 +6,8 @@ import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons';
 
 import { blogMenuList, BlogMenu } from '../data/menu';
 import { Outlet, Link  } from 'react-router-dom';
+import theme from 'style/theme';
+import Fonts from 'style/Fonts';
 
 export const Layout = () => {
     
@@ -51,7 +53,8 @@ export const Layout = () => {
 
 
     return (
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <Fonts />
         <Center>
           <Grid
           width={1540}
@@ -86,7 +89,7 @@ export const Layout = () => {
                   {/* <Button variant={'outline'} size={'sm'} ml={2}> 검색 </Button> */}
                 </Center>
                 <Center h='80px'>
-                  <Avatar name='Dan Abrahmov' src='/image/avatar1.jpg' />
+                  <Avatar src='/image/avatar1.jpg' />
                 </Center>
               </Grid>
             </GridItem>
