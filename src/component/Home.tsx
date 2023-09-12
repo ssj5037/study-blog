@@ -20,18 +20,18 @@ export const Home = () => {
                 <GridItem colSpan={4} rowSpan={2} textAlign='left' >
                     <Box mt='20'>
                         <VStack>
-                            <Text fontSize='sm'>웹 풀스택 개발자</Text>
+                            <Text fontSize='md'>웹 풀스택 개발자</Text>
                             <Heading size='3xl'>신 수 진</Heading>
                         </VStack>
                     </Box>
                     <Box mt='20'>
-                        <Text fontSize='lg'>비즈앤플랫폼(2023.04 ~ 2023.06) - 프론트엔드 개발자</Text>
-                        <Text fontSize='sm'>중소기업형 렌터카 사업체를 위한 자동차 대여 시스템 프론트엔드 개발 업무 담당.</Text>
-                        <Text fontSize='sm'>일부 백엔드 업무도 수행하였음.</Text>
+                        <Heading fontSize='xl'>비즈앤플랫폼(2023.04 ~ 2023.06) - 프론트엔드 개발자</Heading>
+                        <Text fontSize='lg'>중소기업형 렌터카 사업체를 위한 자동차 대여 시스템 프론트엔드 개발 업무 담당.</Text>
+                        <Text fontSize='lg'>일부 백엔드 업무도 수행하였음.</Text>
                     </Box>
                     <Box mt='8'>
-                        <Text fontSize='lg'>크로니즈시스템(2020.10 ~ 2023.03) - 풀스택 개발자</Text>
-                        <Text fontSize='sm'>MES 시스템, Smart Farm시스템 개발 및 설계 업무 담당.</Text>
+                        <Heading fontSize='xl'>크로니즈시스템(2020.10 ~ 2023.03) - 풀스택 개발자</Heading>
+                        <Text fontSize='lg'>MES 시스템, Smart Farm시스템 개발 및 설계 업무 담당.</Text>
                     </Box>
                     <HStack mt='8'>
                         <Link href="https://github.com/ssj5037" isExternal >

@@ -89,7 +89,7 @@ export const Layout = () => {
                   {/* <Button variant={'outline'} size={'sm'} ml={2}> 검색 </Button> */}
                 </Center>
                 <Center h='80px'>
-                  <Avatar name='Dan Abrahmov' src='/image/avatar1.jpg' />
+                  <Avatar src='/image/avatar1.jpg' />
                 </Center>
               </Grid>
             </GridItem>
