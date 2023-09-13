@@ -19,5 +19,4 @@ li {
 }
 .postListItem .postListItemView, .postItemView {
   float: right;
-  display: inline-block;
 }
