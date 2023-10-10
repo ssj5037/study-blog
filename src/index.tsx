@@ -4,6 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+// firebase test
+import database from "./Firebase";
+import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
+
+
+const q = query(collection(database, "board"))
+getDocs(q).then( (querySnapshot)=>{
+    querySnapshot.forEach((doc) => {
+        let data = doc.data()  //저장된 데이터
+        let id = doc.id  //고유 아이디
+        console.log(id, data);
+    })
+})
+
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
