@@ -17,7 +17,7 @@ export const Router = () => {
             <Route path="/" element={<Layout />}>
                 <Route path="/" element={<Home />} />
                 {/* Home */}
-                <Route path="/introduce" element={<Introduce />} />
+                <Route path="/introduce" element={<Home />} />
                 {/* page */}
                 <Route path="/FFXIV" element={<Ffxiv />} />
                 {/* 템플릿 */}

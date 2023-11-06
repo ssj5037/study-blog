@@ -1,0 +1,33 @@
+@import 'reset', 'variables';
+
+// Layout
+.layout {
+  width: 100vw;
+  & [class*=inner] {
+    width: 1160px;
+    margin: 0 auto;
+  }
+  .main-inner {
+    padding: 30px 0;
+  }
+  .footer-inner {
+    padding: 10px 0;
+  }
+}
+
+// Template - Post List
+.postListItem {
+  .postListItemContent {
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+    height: 100px;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 4 ;
+    -webkit-box-orient: vertical;
+  }
+  .postListItemView, .postItemView {
+    float: right;
+  }
+}
