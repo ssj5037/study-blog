@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 // firebase test
 import database from "./Firebase";
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
+import AuthProvider from 'context/authProvider';
 
 
 const q = query(collection(database, "board"))
@@ -23,7 +24,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   
   <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </BrowserRouter>
 );
 

@@ -3,12 +3,12 @@ import { getFirestore } from "firebase/firestore"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAfLqi4Fbrhr-lAyYjBARL8xaYaGkWnJKU",
-  authDomain: "study-blog-3c134.firebaseapp.com",
-  projectId: "study-blog-3c134",
-  storageBucket: "study-blog-3c134.appspot.com",
-  messagingSenderId: "212833040286",
-  appId: "1:212833040286:web:41c766706dd136bb92088f"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 };
 
 const firebaseApp = initializeApp(firebaseConfig); //1차 정보 접근
