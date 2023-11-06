@@ -13,8 +13,12 @@
 - [ ] Next.js 적용?? (CSR, SSR 검토 필요)
 
 ### BE
-- [ ] 어떤 DB 사용할지 검토
-- [ ] java spring boot 환경 구축
+~~- [ ] 어떤 DB 사용할지 검토~~
+~~- [ ] java spring boot 환경 구축~~
+- [x] firebase, firestore 구축
+- [x] 로그인 인증 기능
+- [ ] DB 설계
+- [ ] 게시판 CRUD
 
 ## issue
 - [x] 이미지 용량 줄이기. 버벅거림.. => 이미지 용량 줄임. (230913)
