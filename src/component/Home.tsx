@@ -5,11 +5,10 @@ export const Home = () => {
         <>
             <Grid
                 id="HomeGrid"
-                h='900px'
+                // h='900px'
                 templateRows='repeat(2, 1fr)'
                 templateColumns='repeat(10, 1fr)'
                 gap={10}
-                m='20px 20px 0 20px'
             >
                 <GridItem colSpan={3} >
                     <img src={`${process.env.PUBLIC_URL}/image/home1.jpg`} height='350px'></img>
