@@ -1,14 +1,11 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 // firebase test
 import database from "./Firebase";
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
 import AuthProvider from 'context/authProvider';
-
 
 const q = query(collection(database, "board"))
 getDocs(q).then( (querySnapshot)=>{
@@ -18,7 +15,6 @@ getDocs(q).then( (querySnapshot)=>{
         console.log(id, data);
     })
 })
-
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
