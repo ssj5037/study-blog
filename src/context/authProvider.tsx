@@ -4,7 +4,7 @@ import { AuthContext } from "./authContext";
 import PropTypes from 'prop-types';
 
 type Props = {
-    children?: React.ReactNode
+    children?: ReactNode
 };
 const AuthProvider: React.FC<Props> = (props) => {
   const [user, setUser] = useState<User | null>(null);

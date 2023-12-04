@@ -1,131 +1,83 @@
-import { Box, Button, Card, CardBody, CardFooter, Divider, Grid, HStack, Heading, Image, Stack, Text } from "@chakra-ui/react"
+import { Box, Button, Card, CardBody, Divider, Grid, Heading, Image, Stack, Text } from "@chakra-ui/react"
+import { useEffect, useState } from "react";
+import database from "../Firebase";
+import { collection, query, getDocs, orderBy, where } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
 interface PostItem {
-    id: number;
+    id: string;
     title: string;
+    tags?: string[];
     content: string;
-    createdAt: string;
-    createdUser: string;
-    like: number;
-    view: number;
-    image: string;
+    createdAt: Date;
+    updatedAt: Date;
+    image?: string;
 }
 
-const data: PostItem[] = [
-    {
-        id: 1,
-        title: 'Living room Sofa',
-        content: `This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design.`,
-        createdAt: '2023년 9월 11일',
-        createdUser: 'ssj5037',
-        like: 30,
-        view: 200,
-        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-    },
-    {
-        id: 2,
-        title: 'Living room Sofa',
-        content: `This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design.`,
-        createdAt: '2023년 9월 11일',
-        createdUser: 'ssj5037',
-        like: 30,
-        view: 200,
-        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-    },
-    {
-        id: 3,
-        title: 'Living room Sofa',
-        content: `This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design.`,
-        createdAt: '2023년 9월 11일',
-        createdUser: 'ssj5037',
-        like: 30,
-        view: 200,
-        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-    },
-    {
-        id: 4,
-        title: 'Living room Sofa',
-        content: `This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design.`,
-        createdAt: '2023년 9월 11일',
-        createdUser: 'ssj5037',
-        like: 30,
-        view: 200,
-        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-    },
-    {
-        id: 5,
-        title: 'Living room Sofa',
-        content: `This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design.`,
-        createdAt: '2023년 9월 11일',
-        createdUser: 'ssj5037',
-        like: 30,
-        view: 200,
-        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-    },
-    {
-        id: 6,
-        title: 'Living room Sofa',
-        content: `This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design with a
-            sprinkle of vintage design.`,
-        createdAt: '2023년 9월 11일',
-        createdUser: 'ssj5037',
-        like: 30,
-        view: 200,
-        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-    },
-];
-
-const ItemList = data.map((item: PostItem) => (
-    <Link to={`/post/${item.id}`} key={item.id}>
-    <Card maxW='sm' className="postListItem" key={item.id}>
-            <CardBody>
-                <Image
-                    src={item.image}
-                    borderRadius='lg'
-                />
-                <Stack mt='6' spacing='3'>
-                    <Heading size='md'>{item.title}</Heading>
-                    <Box h={'100px'}>
-                        <Text className="postListItemContent">
-                            {item.content}
-                        </Text>
-                    </Box>
-                    <Divider />
-                    <Text>{item.createdAt}
-                        <span className="postListItemView">👁 {item.view} ❤ {item.like}</span>
-                    </Text>
-                </Stack>
-            </CardBody>
-    </Card>
-        </Link >
-));
-
 export const PostList = () => {
+    // ======================= HOOK =======================
     const navigate = useNavigate();
+    useEffect(() => {
+        setPostList([]);
+        fetchData();
+    },[])
+    
+    // ======================= VARIABLES =======================
+    const [postList, setPostList] = useState<PostItem[]>([]);
+
+    // ======================= METHOD =======================
+    const fetchData = () => {
+        let dataList: PostItem[] = [];
+        const q = query(
+            collection(database, "board")
+            , where("useYn", "==", "Y")
+            , orderBy("createdAt", "desc")
+        )
+        getDocs(q).then( (querySnapshot)=>{
+            querySnapshot.forEach((doc) => {
+                const data: PostItem = {
+                    id: doc.id,
+                    title: doc.data().title,
+                    tags: doc.data().tags || [],
+                    content: doc.data().content,
+                    createdAt: doc.data().createdAt.toDate(),
+                    updatedAt: doc.data().updatedAt.toDate(),
+                    image: doc.data().image || '',
+                };
+                dataList.push(data);
+                setPostList(dataList);
+            })
+        })
+    }
+
+    // 게시글 리스트 렌더링
+    const ItemList = postList.map((item: PostItem) => (
+        <Link to={`/post/${item.id}`} key={item.id}>
+        <Card maxW='300px' className="postListItem" key={item.id}>
+                <CardBody>
+                    <Image
+                        fit={"contain"}
+                        src={item.image || 'https://picsum.photos/id/1/100'}
+                        borderRadius='lg'
+                    />
+                    <Stack mt='6' spacing='3'>
+                        <Heading size='md'>{item.title}</Heading>
+                        <Box h={'100px'}>
+                            <Text className="postListItemContent">
+                                {item.content}
+                            </Text>
+                        </Box>
+                        <Divider />
+                        <Text>{item.createdAt.toUTCString()}
+                            {/* <span className="postListItemView">👁 {item.view} ❤ {item.like}</span> */}
+                        </Text>
+                    </Stack>
+                </CardBody>
+        </Card>
+            </Link >
+    ));
+
+    // ======================= JSX =======================
     return (
         <>
             <Box m='10px 0'>
