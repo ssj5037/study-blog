@@ -1,8 +1,8 @@
 
 import { ChakraProvider, Center, Grid, GridItem } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
-import theme from 'style/theme';
-import Fonts from 'style/Fonts';
+import theme from 'asset/style/theme';
+import Fonts from 'asset/style/Fonts';
 import Footer from './Footer';
 import Header from './Header';
 

@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 import database from "../Firebase";
 import { collection, query, getDocs, orderBy, where } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import { dateToString } from "asset/util/date";
 
 interface PostItem {
     id: string;
     title: string;
     tags?: string[];
     content: string;
-    createdAt: Date;
-    updatedAt: Date;
+    preview?: string;
+    createdAt: string;
+    updatedAt: string;
     image?: string;
 }
 
@@ -26,6 +28,8 @@ export const PostList = () => {
     const [postList, setPostList] = useState<PostItem[]>([]);
 
     // ======================= METHOD =======================
+
+
     const fetchData = () => {
         let dataList: PostItem[] = [];
         const q = query(
@@ -40,8 +44,9 @@ export const PostList = () => {
                     title: doc.data().title,
                     tags: doc.data().tags || [],
                     content: doc.data().content,
-                    createdAt: doc.data().createdAt.toDate(),
-                    updatedAt: doc.data().updatedAt.toDate(),
+                    preview: doc.data().preview,
+                    createdAt: dateToString(doc.data().createdAt.toDate()),
+                    updatedAt: dateToString(doc.data().updatedAt.toDate()),
                     image: doc.data().image || '',
                 };
                 dataList.push(data);
@@ -56,19 +61,21 @@ export const PostList = () => {
         <Card maxW='300px' className="postListItem" key={item.id}>
                 <CardBody>
                     <Image
-                        fit={"contain"}
-                        src={item.image || 'https://picsum.photos/id/1/100'}
+                        fit={"cover"}
+                        src={item.image || 'https://picsum.photos/id/1/500'}
                         borderRadius='lg'
+                        style={{height: '150px'}}
+                        boxSize={'230px'}
                     />
                     <Stack mt='6' spacing='3'>
                         <Heading size='md'>{item.title}</Heading>
-                        <Box h={'100px'}>
+                        {/* <Box h={'70px'}>
                             <Text className="postListItemContent">
-                                {item.content}
+                                {item.preview}
                             </Text>
-                        </Box>
+                        </Box> */}
                         <Divider />
-                        <Text>{item.createdAt.toUTCString()}
+                        <Text>{item.createdAt}
                             {/* <span className="postListItemView">👁 {item.view} ❤ {item.like}</span> */}
                         </Text>
                     </Stack>
