@@ -1,17 +1,20 @@
-import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Avatar, Box, Button, ButtonGroup, Divider, Flex, HStack, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spacer, Stack, Tag, Text, Textarea, VStack, useDisclosure, useToast } from "@chakra-ui/react"
+import { Avatar, Box, Button, ButtonGroup, Divider, Flex, HStack, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spacer, Stack, Tag, Text, Textarea, VStack, useDisclosure, useToast } from "@chakra-ui/react"
 import { AuthContext } from "context/authContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import database from "../Firebase";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
+import { dateToString } from "asset/util/date";
+import Comment from "./Comment";
 
 interface PostItem {
     id: string;
     title: string;
     tags?: string[];
     content: string;
-    createdAt: Date;
-    updatedAt: Date;
+    preview?: string;
+    createdAt: string;
+    updatedAt: string;
     image?: string;
     comments?: Comment[];
 }
@@ -51,8 +54,8 @@ export const Post = () => {
                     title: docSnap.data().title,
                     tags: docSnap.data().tags || [],
                     content: docSnap.data().content,
-                    createdAt: docSnap.data().createdAt.toDate(),
-                    updatedAt: docSnap.data().updatedAt.toDate(),
+                    createdAt: dateToString(docSnap.data().createdAt.toDate()),
+                    updatedAt: dateToString(docSnap.data().updatedAt.toDate()),
                     image: docSnap.data().image || '',
                 };
                 setPost(data);
@@ -102,7 +105,7 @@ export const Post = () => {
                 <VStack>
                     <Heading size='2xl'>{ post?.title }</Heading>
                     <HStack spacing={4}>
-                        <Text>{ post?.createdAt.toISOString() }</Text>
+                        <Text>{ post?.createdAt }</Text>
                         {/* <Text>👁 {post?.view} ❤ { post?.like}</Text> */}
                     </HStack>
                 </VStack>
@@ -127,8 +130,8 @@ export const Post = () => {
                 <VStack align='stretch'>
                     <Heading fontSize='xl'>댓글</Heading>
                     <VStack align='stretch' m="10px 50px" spacing={5}>
-                        <Box>
-                            {
+                        {/* <Box> */}
+                            {/* {
                                 userInfo ?
                                     <HStack>
                                         <Avatar src={userInfo.photoURL ? userInfo.photoURL : `/public/image/no-image.png`} />
@@ -141,20 +144,8 @@ export const Post = () => {
                                 <Button colorScheme="blue" variant="ghost" disabled={!userInfo}>작성</Button>
                             </HStack>
                         </Box>
-                        <Divider />
-                        {
-                            post?.comments?.map(item => (
-                                <Box key={ item.id }>
-                                    <HStack>
-                                        <Avatar src={ item.createdUserImg } />
-                                        <Heading size='md'>{ item.createdUser }</Heading>
-                                        <Text>{ item.createdAt }</Text>
-                                        <Text>❤ { item.like }</Text>
-                                    </HStack>
-                                    <Text ml='57px'>{ item.content }</Text>
-                                </Box>
-                            ))
-                        }
+                        <Divider /> */}
+                        <Comment />
                     </VStack>
                 </VStack>
             </VStack>
