@@ -114,15 +114,16 @@ const Header = () => {
                 <Gnb />
             </HStack>
             <Center h='80px'>
-                <Input variant={'flushed'} size={'sm'}></Input>
-            <IconButton
-                variant='outline'
-                size={'sm'} ml={2}
-                aria-label='Call Sage'
-                fontSize='20px'
-                icon={<SearchIcon />}
-            />
-                {/* <Button variant={'outline'} size={'sm'} ml={2}> 검색 </Button> */}
+              {/* 검색기능 */}
+              {/* <Input variant={'flushed'} size={'sm'}></Input>
+              <IconButton
+                  variant='outline'
+                  size={'sm'} ml={2}
+                  aria-label='Call Sage'
+                  fontSize='20px'
+                  icon={<SearchIcon />}
+              /> */}
+              {/* <Button variant={'outline'} size={'sm'} ml={2}> 검색 </Button> */}
             </Center>
             <Center h='80px'>
                 {/* 인증 o 개인정보 노출, 인증 x 로그인 버튼 노출 */}
@@ -133,7 +134,7 @@ const Header = () => {
                 }
                 
             </Center>
-            </Grid>
+          </Grid>
         </div>
     )
 }

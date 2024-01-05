@@ -31,9 +31,9 @@ export const Router = () => {
                 <Route path="/mypage" element={<Mypage />} />
                 <Route path="/setting" element={<Setting />} />
                 <Route path="/like" element={<Like />} />
-                {/* 유효하지 않은 페이지 */}
-                <Route path="*" element={<NotFound />} />
             </Route>
+            {/* 유효하지 않은 페이지 */}
+            <Route path="*" element={<NotFound />} />
         </Routes>
     )
 }
