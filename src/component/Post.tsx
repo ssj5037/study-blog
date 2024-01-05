@@ -4,8 +4,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import database from "../Firebase";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
-import { dateToString } from "asset/util/date";
 import Comment from "./Comment";
+import dayjs from "dayjs";
 
 interface PostItem {
     id: string;
@@ -16,6 +16,7 @@ interface PostItem {
     createdAt: string;
     updatedAt: string;
     image?: string;
+    tempYn?: boolean;
     comments?: Comment[];
 }
 interface Comment {
@@ -54,9 +55,10 @@ export const Post = () => {
                     title: docSnap.data().title,
                     tags: docSnap.data().tags || [],
                     content: docSnap.data().content,
-                    createdAt: dateToString(docSnap.data().createdAt.toDate()),
-                    updatedAt: dateToString(docSnap.data().updatedAt.toDate()),
+                    createdAt: dayjs(docSnap.data().createdAt.toDate()).format('YYYY-MM-DD HH:mm'),
+                    updatedAt: dayjs(docSnap.data().updatedAt.toDate()).format('YYYY-MM-DD HH:mm'),
                     image: docSnap.data().image || '',
+                    tempYn: docSnap.data().tempYn || '',
                 };
                 setPost(data);
             } else {
@@ -85,22 +87,25 @@ export const Post = () => {
     // ======================= JSX =======================
     return (
         <>
-            <ButtonGroup m='10px 0' spacing="3" variant={"outline"}>
-                <Button colorScheme="blue" onClick={editPost}>수정</Button>
-                <Button colorScheme="red" onClick={onOpen}>삭제</Button>
-                <Modal isOpen={isOpen} onClose={onClose}>
-                    <ModalOverlay />
-                    <ModalContent>
-                    <ModalHeader>게시글 삭제</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>정말 삭제하시겠습니까?</ModalBody>
-                    <ModalFooter>
-                        <Button mr={3} variant='ghost' onClick={onClose}>취소</Button>
-                        <Button colorScheme='red' variant='solid' onClick={deletePost}>삭제</Button>
-                    </ModalFooter>
-                    </ModalContent>
-                </Modal>
-            </ButtonGroup>
+                {
+                    userInfo &&
+                    <ButtonGroup m='10px 0' spacing="3" variant={"outline"}>
+                        <Button colorScheme="blue" onClick={editPost}>수정</Button>
+                        <Button colorScheme="red" onClick={onOpen}>삭제</Button>
+                        <Modal isOpen={isOpen} onClose={onClose}>
+                            <ModalOverlay />
+                            <ModalContent>
+                            <ModalHeader>게시글 삭제</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody>정말 삭제하시겠습니까?</ModalBody>
+                            <ModalFooter>
+                                <Button mr={3} variant='ghost' onClick={onClose}>취소</Button>
+                                <Button colorScheme='red' variant='solid' onClick={deletePost}>삭제</Button>
+                            </ModalFooter>
+                            </ModalContent>
+                        </Modal>
+                    </ButtonGroup>
+                }
             <VStack spacing={8} m='20px 0' align='stretch'>
                 <VStack>
                     <Heading size='2xl'>{ post?.title }</Heading>
@@ -117,34 +122,19 @@ export const Post = () => {
                         ))
                     }
                 </HStack>
-                <Text fontSize='xl'>
+                <Box fontSize='xl'>
                     <img src={post?.image}></img>
                     <div dangerouslySetInnerHTML={{ __html :  post?.content || ''  }} />
-                </Text>
+                </Box>
                 <Flex>
-                    <Button colorScheme="grey" variant="ghost" size="lg">{ `< 이전 게시글` }</Button>
+                    {/* <Button colorScheme="grey" variant="ghost" size="lg">{ `< 이전 게시글` }</Button>
                     <Spacer />
-                    <Button colorScheme="grey" variant="ghost" size="lg">{`다음 게시글 >`}</Button>
+                    <Button colorScheme="grey" variant="ghost" size="lg">{`다음 게시글 >`}</Button> */}
                 </Flex>
                 <Divider />
                 <VStack align='stretch'>
                     <Heading fontSize='xl'>댓글</Heading>
                     <VStack align='stretch' m="10px 50px" spacing={5}>
-                        {/* <Box> */}
-                            {/* {
-                                userInfo ?
-                                    <HStack>
-                                        <Avatar src={userInfo.photoURL ? userInfo.photoURL : `/public/image/no-image.png`} />
-                                        <Heading size='md'>{`${userInfo?.displayName}(${userInfo?.email})`}</Heading>
-                                    </HStack>
-                                    : <></>
-                            }
-                            <HStack>
-                                <Textarea ml='57px' placeholder='댓글을 작성해주세요' size='sm' resize='none' disabled={!userInfo}></Textarea>
-                                <Button colorScheme="blue" variant="ghost" disabled={!userInfo}>작성</Button>
-                            </HStack>
-                        </Box>
-                        <Divider /> */}
                         <Comment />
                     </VStack>
                 </VStack>

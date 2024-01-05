@@ -7,14 +7,14 @@ import database from "./Firebase";
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
 import AuthProvider from 'context/authProvider';
 
-const q = query(collection(database, "board"))
-getDocs(q).then( (querySnapshot)=>{
-    querySnapshot.forEach((doc) => {
-        let data = doc.data()  //저장된 데이터
-        let id = doc.id  //고유 아이디
-        console.log(id, data);
-    })
-})
+// const q = query(collection(database, "board"))
+// getDocs(q).then( (querySnapshot)=>{
+//     querySnapshot.forEach((doc) => {
+//         let data = doc.data()  //저장된 데이터
+//         let id = doc.id  //고유 아이디
+//         console.log(id, data);
+//     })
+// })
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -26,7 +26,7 @@ root.render(
   </BrowserRouter>
 );
 
-console.log(process.env)
+// console.log(process.env)
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

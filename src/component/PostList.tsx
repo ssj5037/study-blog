@@ -1,9 +1,10 @@
 import { Box, Button, Card, CardBody, Divider, Grid, Heading, Image, Stack, Text } from "@chakra-ui/react"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import database from "../Firebase";
 import { collection, query, getDocs, orderBy, where } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
-import { dateToString } from "asset/util/date";
+import { AuthContext } from "context/authContext";
+import dayjs from "dayjs";
 
 interface PostItem {
     id: string;
@@ -14,11 +15,13 @@ interface PostItem {
     createdAt: string;
     updatedAt: string;
     image?: string;
+    tempYn?: boolean;
 }
 
 export const PostList = () => {
     // ======================= HOOK =======================
     const navigate = useNavigate();
+    const userInfo = useContext(AuthContext);
     useEffect(() => {
         setPostList([]);
         fetchData();
@@ -35,6 +38,7 @@ export const PostList = () => {
         const q = query(
             collection(database, "board")
             , where("useYn", "==", "Y")
+            , where("tempYn", "==", false)
             , orderBy("createdAt", "desc")
         )
         getDocs(q).then( (querySnapshot)=>{
@@ -45,9 +49,10 @@ export const PostList = () => {
                     tags: doc.data().tags || [],
                     content: doc.data().content,
                     preview: doc.data().preview,
-                    createdAt: dateToString(doc.data().createdAt.toDate()),
-                    updatedAt: dateToString(doc.data().updatedAt.toDate()),
+                    createdAt: dayjs(doc.data().createdAt.toDate()).format('YYYY-MM-DD HH:mm'),
+                    updatedAt: dayjs(doc.data().updatedAt.toDate()).format('YYYY-MM-DD HH:mm'),
                     image: doc.data().image || '',
+                    tempYn: doc.data().tempYn || '',
                 };
                 dataList.push(data);
                 setPostList(dataList);
@@ -87,9 +92,11 @@ export const PostList = () => {
     // ======================= JSX =======================
     return (
         <>
-            <Box m='10px 0'>
-                <Button colorScheme="blue" variant={"outline"} onClick={()=>navigate('/posting')}>게시글 작성</Button>
-            </Box>
+            {userInfo &&
+                <Box m='10px 0'>
+                    <Button colorScheme="blue" variant={"outline"} onClick={()=>navigate('/posting')}>게시글 작성</Button>
+                </Box>
+            }
             <Grid m='20px 0' templateColumns='repeat(4, 1fr)' gap={3}>
                 { ItemList }
             </Grid>

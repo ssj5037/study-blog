@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import database from "../Firebase";
-import { collection, addDoc, Timestamp, updateDoc, doc } from "firebase/firestore"
+import { collection, addDoc, Timestamp, updateDoc, doc, setDoc } from "firebase/firestore"
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export const Posting = () => {
@@ -16,9 +16,10 @@ export const Posting = () => {
     let { id } = useParams();
     useEffect(() => {
         if (id) {
-            setContent(location.state.content);
-            setTitle(location.state.title);
-            setTags(location.state.tags);
+            setContent(location.state.content || '');
+            setTitle(location.state.title || '');
+            setTags(location.state.tags || []);
+            setTempYn(location.state.tempYn);
         }
     },[])
 
@@ -27,6 +28,7 @@ export const Posting = () => {
     const [tags, setTags] = useState<string[]>([]);
     const [tag, setTag] = useState('');
     const [content, setContent] = useState('');
+    const [tempYn, setTempYn] = useState(true);
 
     const toolbarOptions = [
         ['image'],
@@ -61,7 +63,7 @@ export const Posting = () => {
     };
 
     // 게시글 저장
-    const save = async (mode: 'save' | 'edit') => {
+    const save = async (mode: 'save' | 'temp') => {
         if (title.length < 1) {
             toast({
                 title: '제목을 입력하세요.',
@@ -83,44 +85,65 @@ export const Posting = () => {
             return;
         }
 
-        if (mode === 'save') {
-            // 신규 게시글 저장
+        if (id) {
+            // 1. mode: 'temp' & id: O  & tempYn: true => 임시저장 업데이트
+            // 2. mode: null & id: O & tempYn: false => 게시글 업데이트 (수정, update)
+            // 3. mode: null & id: O & tempYn: true => 신규 게시글
+            let data: object = {
+                title: title,
+                tags: tags,
+                content: content,
+                updatedAt: Timestamp.now(),
+                useYn: 'Y',
+                tempYn: mode === 'temp' ? true : false
+            };
+            if (!mode && tempYn) {
+                data = {
+                    ...data,
+                    createdAt: Timestamp.now()
+                }
+            }
+
+            const result = await updateDoc(doc(database, "board", id), data);
+            toast({
+                title: mode === 'temp' ? '게시글이 임시저장되었습니다.' : '게시글이 수정되었습니다.',
+                // description: `[${title}] 등록`,
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            });
+            if (mode === 'save') {
+                navigate(`/post/${id}`);
+            }
+        } else {
+            // 1. mode: 'temp' & id: X => 신규 임시저장
+            // 2. mode: null & id: X => 신규 게시글
             const result = await addDoc(collection(database, "board"), {
                 title: title,
                 tags: tags,
                 content: content,
                 createdAt: Timestamp.now(),
                 updatedAt: Timestamp.now(),
-                useYn: 'Y'
+                useYn: 'Y',
+                tempYn: mode === 'temp' ? true : false
             });
+            
             if (result) {
                 toast({
-                    title: '게시글이 등록되었습니다.',
+                    title: mode === 'temp' ? '게시글이 임시저장되었습니다.' : '게시글이 저장되었습니다.',
                     // description: `[${title}] 등록`,
                     status: 'success',
                     duration: 5000,
                     isClosable: true,
                 });
-                navigate("/post");
+                if (mode === 'save') {
+                    navigate("/post");
+                } else {
+                    navigate(`/posting/${result.id}`);
+                }
             }
-        } else {
-            // 기존 게시글 수정
-            const result = await updateDoc(doc(database, "board", id || ''), {
-                title: title,
-                tags: tags,
-                content: content,
-                updatedAt: Timestamp.now(),
-                useYn: 'Y'
-            });
-            toast({
-                title: '게시글이 수정되었습니다.',
-                // description: `[${title}] 등록`,
-                status: 'success',
-                duration: 5000,
-                isClosable: true,
-            });
-            navigate(`/post/${id}`);
         }
+
     };
 
     // ======================= JSX =======================
@@ -166,12 +189,15 @@ export const Posting = () => {
                 modules={{toolbar: toolbarOptions}}
             />
             <ButtonGroup m='10px 0' spacing="3">
-                <Button colorScheme="blue" variant={"outline"}>임시저장</Button>
                 {
-                    id ?
-                    <Button colorScheme="blue" onClick={() => save('edit')}>수정하기</Button>
+                    tempYn &&
+                    <Button colorScheme="blue" onClick={() => save('temp')} variant={"outline"}>임시저장</Button>
+                }
+                {
+                    id && !tempYn ?
+                    <Button colorScheme="blue" onClick={()=>save('save')}>수정하기</Button>
                     :
-                    <Button colorScheme="blue" onClick={() => save('save')}>게시하기</Button>
+                    <Button colorScheme="blue" onClick={()=>save('save')}>게시하기</Button>
                 }
             </ButtonGroup>
         </div>

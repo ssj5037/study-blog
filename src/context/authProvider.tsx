@@ -12,7 +12,7 @@ const AuthProvider: React.FC<Props> = (props) => {
   useEffect(() => {
     const auth = getAuth();
     const login = auth.onAuthStateChanged(data => {
-      console.log('로그인 상태 : ', data);
+      // console.log('로그인 상태 : ', data);
       setUser(data);
     });
     return login;
